@@ -76,17 +76,7 @@
       
     </ul>
   </div>
-<script>
-  var xhr = new XMLHttpRequest();
-  xhr.open('get', 'https://api.gushi.ci/all.txt');
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      var gushici = document.getElementById('gushici');
-      gushici.innerText = xhr.responseText;
-    }
-  };
-  xhr.send();
-</script>
+   <script type="text" src="https://api.gushi.ci/all.txt" charset="utf-8"></script>
 </header>
 
         
