@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="crontab命令被用来提交和管理用户的需要周期性执行的任务，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。  几个概念首先介绍几个概念：1、cron 守护程序 ———可以理解成一头拉磨的高级驴，1圈/min，伺机而动。2、crontab 文件">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="守护天使--crontab">
+<meta property="og:url" content="http://yoursite.com/child/2018/12/01/守护天使-crontab/index.html">
+<meta property="og:site_name" content="coding farm">
+<meta property="og:description" content="crontab命令被用来提交和管理用户的需要周期性执行的任务，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。  几个概念首先介绍几个概念：1、cron 守护程序 ———可以理解成一头拉磨的高级驴，1圈/min，伺机而动。2、crontab 文件">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-01T06:48:02.899Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="守护天使--crontab">
+<meta name="twitter:description" content="crontab命令被用来提交和管理用户的需要周期性执行的任务，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。  几个概念首先介绍几个概念：1、cron 守护程序 ———可以理解成一头拉磨的高级驴，1圈/min，伺机而动。2、crontab 文件">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/child/2018/12/01/守护天使-crontab/">
+
+
+
+
+
+  <title>守护天使--crontab | coding farm</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">coding farm</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2018/12/01/守护天使-crontab/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小名同学">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coding farm">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">守护天使--crontab</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T14:45:32+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><code>crontab</code>命令被用来提交和管理用户的需要周期性执行的任务，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。</p>
+</blockquote>
+<h2 id="几个概念"><a href="#几个概念" class="headerlink" title="几个概念"></a>几个概念</h2><p>首先介绍几个概念：<br>1、cron 守护程序 ———可以理解成一头拉磨的高级驴，1圈/min，伺机而动。<br>2、crontab 文件  ———–驴眼前的一张表，显示指令。<br>3、<code>crontab</code> 命令 ———–把命令内容写进crontab文件的那支笔</p>
+<a id="more"></a>
+<h3 id="cron-守护进程"><a href="#cron-守护进程" class="headerlink" title="cron 守护进程"></a>cron 守护进程</h3><ul>
+<li>在LINUX中，周期执行的任务一般由cron这个守护进程来处理[ps -ef|grep cron]。</li>
+<li>cron读取一个或多个配置文件，这些配置文件中包含了命令行及其调用时间。cron的配置文件称为“crontab”，是“cron table”的简写。</li>
+<li>cron 守护进程常常在后台运行，每一分钟检查是否有预定的作业需要执行。这类作业一般称为cron jobs。</li>
+<li>这个 cron 守护程序运行的命令和 crontab 文件条目是<strong>相对应</strong>的。</li>
+</ul>
+<p>crond服务相关命令如下<br><em>cron、crond 为同一服务，不同destribution可能会不同</em><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">/sbin/service crond start    //启动服务</span><br><span class="line">/sbin/service crond stop     //关闭服务</span><br><span class="line">/sbin/service crond restart  //重启服务</span><br><span class="line">/sbin/service crond reload   //重新载入配置</span><br><span class="line">      service crond status   //查看服务状态 </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"><span class="comment">### crontab 文件</span></span><br><span class="line">crontab文件包含送交cron守护进程的一系列作业和指令。</span><br><span class="line">cron执行时，也就是要读取三个地方的配置文件：一是/etc/crontab，二是/etc/cron.d目录下的所有文件，三是每个用户的配置文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- /var/spool/cron/ 这个目录下存放的是每个用户包括root的crontab任务，每个任务以创建者的名字命名，比如ipofas建的crontab任务对应的文件就是 /var/spool/cron/crontabs/ipofas。一般一个用户最多只有一个crontab文件；</span><br><span class="line">- /etc/crontab 这个文件负责安排由系统管理员制定的维护系统以及其他任务的crontab；</span><br><span class="line">- /etc/cron.d/ 一般此目录下存放的是系统级任务的任务文件。[crontab/cron.d区别][1]、[crontab/cron.d介绍][2]</span><br><span class="line"></span><br><span class="line"><span class="comment">### 控制对 cron 的使用</span></span><br><span class="line">每一个用户都可以有自己的crontab文件，但在一个用户较多的系统中，我们通常会限制。为了安全问题，可以限制能够使用 crontab 的用户： /etc/cron.allow,  /etc/cron.deny，详细可了解[IBM上相关安全性介绍][3]、[Linux /etc/cron.d作用][4]</span><br><span class="line"></span><br><span class="line">- /etc/cron.allow 和 /etc/cron.deny 文件被用来限制对 cron 的使用。这两个使用控制文件的格式都是每行一个用户。两个文件都不允许空格。</span><br><span class="line">- 如果使用控制文件被修改了，cron 守护进程（crond）不必被重启。使用控制文件在每次用户添加或删除一项 cron 任务时都会被读取。</span><br><span class="line">- 无论使用控制文件中的规定如何，根用户都总是可以使用 cron。</span><br><span class="line">- 若 cron.allow 文件存在，只有其中列出的用户才被允许使用 cron，并且 cron.deny 文件会被忽略。</span><br><span class="line">- 若 cron.allow 文件不存在，所有在 cron.deny 中列出的用户都被禁止使用 cron</span><br><span class="line"></span><br><span class="line"><span class="comment">###  [crontab][5]命令</span></span><br><span class="line">`crontab`命令是用来编辑crontab文件的命令（也就是`crontab`命令提交、编辑、列出或除去 cron 作业）</span><br><span class="line"></span><br><span class="line">    usage:	crontab [-u user] file</span><br><span class="line">	    crontab [ -u user ] [ -i ] &#123; -e | -l | -r &#125;</span><br><span class="line">		        (default operation is replace, per 1003.2)</span><br><span class="line">	    -e	    (edit user<span class="string">'s crontab)</span></span><br><span class="line"><span class="string">	    -l	    (list user'</span>s crontab)</span><br><span class="line">	    -r	    (delete user<span class="string">'s crontab)</span></span><br><span class="line"><span class="string">	    -i	    (prompt before deleting user'</span>s crontab)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## crontab 文件输入格式</span></span><br><span class="line"><span class="comment">### 配置规则</span></span><br><span class="line">一个 crontab 文件包含每个 cron 作业的条目。条目由换行符分开。每个 crontab 文件条目包括 **6** 个字段，它们被空格或制表符（Tab）用以下格式分开：</span><br><span class="line"></span><br><span class="line">![pic_crontab输入格式][6]</span><br></pre></td></tr></table></figure></p>
+<p>Minute Hour Day Month Week command<br>分钟   小时   天    月  星期  命令<br>0-59  0-23  1-31 1-12 0-6  command<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">前5个域称之`分 时 日 月 周`，可方便个人记忆。</span><br><span class="line">必须为这5个域的每个字段指定一个值，在一个区域里填写多个数值的方法有：</span><br><span class="line"></span><br><span class="line">- 逗号 `,` 分开的值，例如：`1,3,4,7,8`</span><br><span class="line">- 连词符 `-` 指定值的范围，例如：`1-6`，意思等同于 `1,2,3,4,5,6`</span><br><span class="line">- 星号 `*` 表示所有的允许值。例如，在“小时域”里的星号 `*` 等于是“每一个小时”，等等</span><br><span class="line">- 斜线 `/` 操作符指定时间的间隔频率。例如 `0-23/2` 表示每两小时执行一次。同时正斜线可以和星号一起使用，例如 `*/10` ，如果用在minute字段，表示每十分钟执行一次； `*/3` 在小时域中等于 `0,3,6,9,12,15,18,21` 等等，能被3整除的数（每三小时执行一次）</span><br><span class="line"></span><br><span class="line">### [常见错误][7]</span><br><span class="line"></span><br><span class="line">- **几号**和**星期几**</span><br><span class="line"></span><br><span class="line">几号和星期几都涉及到了“哪一天”的设定。如果几号和星期几**同时**被设定，那么只要其中的一个条件被满足时，指令便会被执行。如下条目</span><br><span class="line">```bash</span><br><span class="line">0 0 1,15 * 1 command</span><br></pre></td></tr></table></figure></p>
+<p>将在每个月的第一天和第十五天,以及每个星期一运行  command。要仅在一个字段中指定天，另一字段应当包含 <code>*</code> 。</p>
+<p><em>另外一种表达方式是：特殊地，当星期域（第五个域）被指定为 `</em><code>时，星期域与日域（第三个域）执行“**与**”操作；而当星期域（第五个域）被指定为</code><em>` 以外的内容时，星期域与日域执行“<strong>或</strong>”操作。</em></p>
+<ul>
+<li>分钟误设置成 <code>*</code> </li>
+</ul>
+<p>另一个常见错误是对分钟设置的误用。下例想让程序两个小时运行一次：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># adds date to a log file</span></span><br><span class="line">* 0,2,4,6,8,10,12,14,16,18,20,22 * * * date &gt;&gt; /var/<span class="built_in">log</span>/date.log</span><br></pre></td></tr></table></figure></p>
+<p>而只要分钟设置成 <code>*</code> 上述设置会使该程序在偶数小时内的每一分钟执行一次。正确的设置是将分钟设置成 <code>0</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#runs the date command every even hour at the top of the hour</span></span><br><span class="line">0 0,2,4,6,8,10,12,14,16,18,20,22 * * * date &gt;&gt; /var/<span class="built_in">log</span>/date.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># an even better way</span></span><br><span class="line">0 */2 * * * date &gt;&gt; /var/<span class="built_in">log</span>/date.log</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>对<a href="https://blog.csdn.net/liu0808/article/details/80668705" target="_blank" rel="noopener">“每隔多少”</a>理解错误</li>
+</ul>
+<p>下面程序0:26开始执行，想每隔一小时执行一次脚本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">00 *   * * *  <span class="comment">#每隔一小时执行一次</span></span><br><span class="line">00 */1 * * *  <span class="comment">#与上面是相同的任务</span></span><br></pre></td></tr></table></figure></p>
+<p>这样结果是每个整点(12:00,13:00,…)执行一次，而不是期待的(0:26,1:26…)执行。<br>真正的写法应该是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*/60  * * * * <span class="comment">#每60分钟即每小时执行一次</span></span><br><span class="line">*/105 * * * * <span class="comment">#每105分钟执行一次</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="不发送电子邮件"><a href="#不发送电子邮件" class="headerlink" title="不发送电子邮件"></a>不发送电子邮件</h2><p>每条 cron job 执行完毕之后，系统会自动将输出发送邮件给当前系统用户。日积月累，非常的多，甚至会撑爆整个系统。所以每条 cron job 命令后面进行重定向处理是非常必要的。前提是对 Job 中的命令需要正常输出已经作了一定的处理, 比如追加到某个特定日志文件。</p>
+<p>若想关闭某个命令的输出结果，可以将输出结果重定向至 <code>/dev/null</code> 。</p>
+<pre><code>/dev/null 2&gt;&amp;1
+</code></pre><p>crontab中经常配置<a href="https://ubock.com/article/24" target="_blank" rel="noopener">运行脚本输出</a>为：<code>&gt;/dev/null 2&gt;&amp;1</code>，来屏蔽cron job运行中的内容输出。</p>
+<p>shell命令的结果可以通过 <code>&gt;</code> 的形式来定义输出 <code>/dev/null</code> 代表空设备文件 <code>&gt;</code> 代表重定向到哪里，例如：<code>echo &quot;123&quot; &gt; /home/123.txt</code><br><code>1</code> 表示stdout标准输出，系统默认值是<code>1</code>，所以 <code>&gt;/dev/null</code> 等同于 <code>1&gt;/dev/null</code><br><code>2</code> 表示stderr标准错误<br><code>&amp;</code> 表示等同于的意思，<code>2&gt;&amp;1</code> ，表示2的输出重定向等同于<code>1</code></p>
+<p>那么重定向输出语句的含义：<br><code>1&gt;/dev/null</code> 首先表示<strong>标准输出</strong>重定向到空设备文件，也就是不输出任何信息到终端，不显示任何信息。<br><code>2&gt;&amp;1</code> 表示标准错误输出重定向等同于标准输出，因为之前标准输出已经重定向到了空设备文件，所以<strong>标准错误</strong>输出也重定向到空设备文件。</p>
+<h2 id="cron-与环境变量"><a href="#cron-与环境变量" class="headerlink" title="cron 与环境变量"></a>cron 与环境变量</h2><p><a href="https://unix.stackexchange.com/questions/27289/how-can-i-run-a-cron-command-with-existing-environmental-variables" target="_blank" rel="noopener">stackexchange</a>  <a href="http://bbs.chinaunix.net/thread-2291457-1-1.html" target="_blank" rel="noopener">chinaunix</a>  <a href="http://blog.51cto.com/skypegnu1/1428632" target="_blank" rel="noopener">51cto</a>  <a href="https://zh.saowen.com/a/1ba5e723e21aed6bb0d3e708de6a95382ffaa48b94b911eef5ccbe984fa75279" target="_blank" rel="noopener">saowen</a><br>不要假定cron知道所需要的特殊环境，它其实并不知道。所以你要保证在shelll脚本中提供所有必要的路径和环境变量，除了一些自动设置的全局变量。请注意如下3点：<br>1）脚本中涉及文件路径时写<strong>绝对路径</strong>；<br>2）脚本执行要用到java或其他环境变量时，通过source、export命令在脚本中引入环境变量，如：</p>
+<pre><code>cat start_cbp.sh
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"><span class="built_in">export</span> RUN_CONF=/home/d139/conf/platform/cbp/cbp_jboss.conf</span><br><span class="line">/usr/<span class="built_in">local</span>/jboss-4.0.5/bin/run.sh -c mev &amp;</span><br></pre></td></tr></table></figure>
+<p>3）当手动执行脚本OK，但是crontab死活不执行时。这时必须大胆怀疑是<strong>环境变量</strong>惹的祸，并可以尝试在crontab中直接引入环境变量解决问题。如：</p>
+<pre><code>0 * * * * . /etc/profile;/bin/sh /var/www/java/audit_no_count/bin/restart_audit.sh
+</code></pre><p>因为我们手动执行某个任务时，是在当前shell环境下进行的，程序当然能找到环境变量，而系统自动执行任务调度时，是不会加载任何环境变量的，因此，就需要在crontab文件中指定任务运行所需的所有环境变量，这样，系统执行任务调度时就没有问题了。</p>
+<h2 id="其他应该注意的问题"><a href="#其他应该注意的问题" class="headerlink" title="其他应该注意的问题"></a>其他应该注意的问题</h2><p>1）新创建的cron job，不会马上执行，至少要过2分钟才执行。如果重启cron则马上执行。<br>2）当crontab突然失效时，可以尝试 <code>/etc/init.d/crond restart</code> 解决问题。或者查看日志看某个cron job有没有执行报错 <code>tail -f var/spool/cron/crontabs/**</code> 。<br>3）千万别乱运行 <code>crontab -r</code> 。它从crontab目录（/var/spool/cron/crontabs）中删除用户的crontab文件(和用户名同名)。删除了该用户的所有crontab都没了。<br>4）在crontab中%是有特殊含义的，表示换行的意思。如果要用的话必须进行转义\%，如经常用的date ‘+%Y%m%d’在crontab里是不会执行的，应该换成date ‘+\%Y\%m\%d’`。<br>5）更新系统时间时区后需要重启cron,在ubuntu中服务名为cron:</p>
+<pre><code>$service cron restart
+</code></pre><p>ubuntu下启动、停止与重启cron:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> /etc/init.d/cron start</span><br><span class="line"><span class="variable">$sudo</span> /etc/init.d/cron stop</span><br><span class="line"><span class="variable">$sudo</span> /etc/init.d/cron restart</span><br></pre></td></tr></table></figure></p>
+<p><em>本文借鉴参考了不少大佬的个站以及相关知名官网、论坛，感谢！</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/01/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小名同学</p>
+              <p class="site-description motion-element" itemprop="description">welcome to my code farm!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#几个概念"><span class="nav-number">1.</span> <span class="nav-text">几个概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cron-守护进程"><span class="nav-number">1.1.</span> <span class="nav-text">cron 守护进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不发送电子邮件"><span class="nav-number">2.</span> <span class="nav-text">不发送电子邮件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cron-与环境变量"><span class="nav-number">3.</span> <span class="nav-text">cron 与环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他应该注意的问题"><span class="nav-number">4.</span> <span class="nav-text">其他应该注意的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小名同学</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<br>Total <span id="busuanzi_value_site_pv"></span> views.
+您是路过的第<span id="busuanzi_value_site_uv"></span>个小伙伴
+<br><span id="busuanzi_value_page_pv"></span> Hits
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript" src="/js/src/particle.js"></script>
+</body>
+</html>
