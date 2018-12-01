@@ -111,3 +111,39 @@ $(document).ready(function() {
     }
   }
 });
+
+(function() {
+  "use strict";
+
+  jQuery.ajax ({
+    type: 'GET',
+    url: 'https://open.iciba.com/dsapi/',
+    dataType: 'jsonp',
+    success: function (response) {
+      //  {
+      //   sid: response.sid,
+      //   tts: response.tts,
+      //   caption: response.caption,
+      //   english: response.content,
+      //   chinese: response.note,
+      //   editorComments: response.translation,
+      //   backgroundImage: response.picture2,
+      //   modified: response.dateline
+      // };
+      // For compatibility
+      console.log([
+        '<div>',
+          '<h4>',
+            response.caption,
+          '</h4>',
+          '<p>',
+            response.content + ' —— ' + response.note + ' (' + response.dateline + ')',
+          '</p>',
+        '</div>'
+      ].join(''));
+    },
+    error: function (err) {
+      console.error(err)
+    }
+  })
+})();
