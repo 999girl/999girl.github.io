@@ -21,7 +21,7 @@
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="守护天使--crontab">
-<meta property="og:url" content="https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/index.html">
+<meta property="og:url" content="http://yoursite.com/child/2018/12/01/守护天使-crontab/index.html">
 <meta property="og:site_name" content="coding farm">
 <meta property="og:description" content="crontab命令被用来提交和管理用户的需要周期性执行的任务，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。  几个概念首先介绍几个概念：1、cron 守护程序 ———可以理解成一头拉磨的高级驴，1圈/min，伺机而动。2、crontab 文件">
 <meta property="og:locale" content="en">
@@ -52,10 +52,10 @@
     <!-- title -->
     <title>守护天使--crontab</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/999girl.github.io@master/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/999girl.github.io@master/css/rtl.css">
+      <link rel="stylesheet" href="/css/rtl.css">
     
     <!-- rss -->
     
@@ -81,7 +81,7 @@
          
           <li><a href="https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/">Home</a></li>
          
-          <li><a href="/999girl.github.io@master/about/">About</a></li>
+          <li><a href="/about/">About</a></li>
          
           <li><a href="https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/archives/">Writing</a></li>
         
@@ -91,10 +91,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/999girl.github.io@master/2019/12/21/Merry-Christmas/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/12/21/Merry-Christmas/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/999girl.github.io@master/2018/02/10/kindle3 weather display/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2018/02/10/kindle3 weather display/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -107,16 +107,16 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&text=守护天使--crontab"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&is_video=false&description=守护天使--crontab"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=守护天使--crontab&body=Check out this article: https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&name=守护天使--crontab&description=&lt;blockquote&gt;
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/child/2018/12/01/守护天使-crontab/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&text=守护天使--crontab"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&is_video=false&description=守护天使--crontab"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=守护天使--crontab&body=Check out this article: http://yoursite.com/child/2018/12/01/守护天使-crontab/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&name=守护天使--crontab&description=&lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;crontab&lt;/code&gt;命令被用来提交和管理用户的需要周期性执行的任务，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;几个概念&#34;&gt;&lt;a href=&#34;#几个概念&#34; class=&#34;headerlink&#34; title=&#34;几个概念&#34;&gt;&lt;/a&gt;几个概念&lt;/h2&gt;&lt;p&gt;首先介绍几个概念：&lt;br&gt;1、cron 守护程序 ———可以理解成一头拉磨的高级驴，1圈/min，伺机而动。&lt;br&gt;2、crontab 文件  ———–驴眼前的一张表，显示指令。&lt;br&gt;3、&lt;code&gt;crontab&lt;/code&gt; 命令 ———–把命令内容写进crontab文件的那支笔&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
@@ -161,7 +161,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/999girl.github.io@master/tags/Linux/">Linux</a>
+        <a class="tag-link" href="/tags/Linux/">Linux</a>
     </div>
 
 
@@ -266,7 +266,7 @@
          
           <li><a href="https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/">Home</a></li>
          
-          <li><a href="/999girl.github.io@master/about/">About</a></li>
+          <li><a href="/about/">About</a></li>
          
           <li><a href="https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/archives/">Writing</a></li>
         
@@ -279,16 +279,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&text=守护天使--crontab"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&is_video=false&description=守护天使--crontab"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=守护天使--crontab&body=Check out this article: https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/2018/12/01/守护天使-crontab/&name=守护天使--crontab&description=&lt;blockquote&gt;
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/child/2018/12/01/守护天使-crontab/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&text=守护天使--crontab"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&is_video=false&description=守护天使--crontab"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=守护天使--crontab&body=Check out this article: http://yoursite.com/child/2018/12/01/守护天使-crontab/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&title=守护天使--crontab"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/child/2018/12/01/守护天使-crontab/&name=守护天使--crontab&description=&lt;blockquote&gt;
 &lt;p&gt;&lt;code&gt;crontab&lt;/code&gt;命令被用来提交和管理用户的需要周期性执行的任务，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;几个概念&#34;&gt;&lt;a href=&#34;#几个概念&#34; class=&#34;headerlink&#34; title=&#34;几个概念&#34;&gt;&lt;/a&gt;几个概念&lt;/h2&gt;&lt;p&gt;首先介绍几个概念：&lt;br&gt;1、cron 守护程序 ———可以理解成一头拉磨的高级驴，1圈/min，伺机而动。&lt;br&gt;2、crontab 文件  ———–驴眼前的一张表，显示指令。&lt;br&gt;3、&lt;code&gt;crontab&lt;/code&gt; 命令 ———–把命令内容写进crontab文件的那支笔&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
@@ -317,7 +317,7 @@
          
           <li><a href="https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/">Home</a></li>
          
-          <li><a href="/999girl.github.io@master/about/">About</a></li>
+          <li><a href="/about/">About</a></li>
          
           <li><a href="https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/archives/">Writing</a></li>
         
@@ -328,13 +328,13 @@
 
     </div>
     <!-- styles -->
-<link rel="stylesheet" href="/999girl.github.io@master/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/999girl.github.io@master/lib/justified-gallery/css/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
     <!-- jquery -->
-<script src="/999girl.github.io@master/lib/jquery/jquery.min.js"></script>
-<script src="/999girl.github.io@master/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
-<script src="/999girl.github.io@master/js/main.js"></script>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
 <!-- search -->
 
 <!-- Google Analytics -->
