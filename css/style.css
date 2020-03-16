@@ -435,7 +435,7 @@ body td {
 @font-face {
   font-style: normal;
   font-family: "Meslo LG";
-  src: local("Meslo LG S"), url("../lib/meslo-LG/MesloLGS-Regular.ttf") format("truetype");
+  src: local("Meslo LG S"), url("https://cdn.jsdelivr.net/gh/999girl/999girl.github.io@master/lib/meslo-LG/MesloLGS-Regular.ttf") format("truetype");
 }
 *,
 *:before,
