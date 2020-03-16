@@ -1,3 +1,8 @@
+//加载JavaScript
+<script src="<%- url_for(theme_js('assets/scripts/search', cache)) %>" async></script>
+//加载CSS
+<link rel="stylesheet" href="<%- url_for(theme_css('/assets/styles/style', cache)) %>">
+
 // A local search script with the help of
 // [hexo-generator-search](https://github.com/PaicHyperionDev/hexo-generator-search)
 // Copyright (C) 2015

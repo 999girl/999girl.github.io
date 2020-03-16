@@ -1,3 +1,8 @@
+//加载JavaScript
+<script src="<%- url_for(theme_js('assets/scripts/search', cache)) %>" async></script>
+//加载CSS
+<link rel="stylesheet" href="<%- url_for(theme_css('/assets/styles/style', cache)) %>">
+
 /**
  * Sets up Justified Gallery.
  */
